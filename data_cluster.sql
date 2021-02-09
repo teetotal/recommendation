@@ -1,0 +1,2 @@
+SELECT aid, position, rating 
+FROM D20210128_POSITION_RATING

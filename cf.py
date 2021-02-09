@@ -10,6 +10,8 @@ from surprise import accuracy
 from surprise.model_selection import train_test_split
 from collections import defaultdict
 
+from util import *
+
 def get_top_n(predictions, n=10):
     """Return the top-N recommendation for each user from a set of predictions.
 
@@ -40,12 +42,15 @@ def get_top_n(predictions, n=10):
 factors = 100
 epochs = 20
 
+#data load
+users, items, ratings = load_data('data')
+
 # Creation of the dataframe. Column names are irrelevant.
 df = pd.DataFrame(
     {
-        'items': ['1', '1', '1', '2', '2'],
-        'users': [9, 32, 2, 45, 'user_foo'],
-        'ratings': [3.1, 2.1, 4.4, 3.0, 1.12]
+        'items': items,
+        'users': users,
+        'ratings': ratings
     }
     )
 
@@ -59,20 +64,21 @@ data = Dataset.load_from_df(df[['users', 'items', 'ratings']], reader)
 #data = Dataset.load_builtin('ml-100k')
 
 #trainset, testset = train_test_split(data, test_size=.1)
+print('build trainset')
 trainset = data.build_full_trainset()
-testset = trainset.build_anti_testset()
+#testset = trainset.build_anti_testset()
 
 # We'll use the famous SVD algorithm.
-algo = SVD(n_factors=factors, n_epochs=epochs, verbose=False)
-
+algo = SVD(n_factors=factors, n_epochs=epochs, verbose=True)
+#cross_validate(algo, data, measures=['RMSE', 'MAE'], cv=5, verbose=True)
 # Train the algorithm on the trainset, and predict ratings for the testset
 algo.fit(trainset)
-cross_validate(algo, data, measures=['RMSE', 'MAE'], cv=5, verbose=True)
-# We can now use this dataset as we please, e.g. calling cross_validate
-cross_validate(NormalPredictor(), data, cv=5, verbose=True)
 
-predictions = algo.test(testset, verbose=False)
-recommends = get_top_n(predictions)
+# We can now use this dataset as we please, e.g. calling cross_validate
+#cross_validate(NormalPredictor(), data, cv=5, verbose=True)
+
+#predictions = algo.test(testset, verbose=True)
+#recommends = get_top_n(predictions)
 '''
 for recommend in recommends:
     print(recommend, recommends[recommend])

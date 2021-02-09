@@ -6,6 +6,7 @@ def get_data(path, is_print = True):
     users = h5['/train']['users'][()]
     items = h5['/train']['items'][()]
     ratings = h5['/train']['ratings'][()]
+    h5.close()
     
     if is_print == True:
         print("loaded data", path, len(users), len(items), len(ratings))
@@ -34,3 +35,26 @@ def load_data(_path):
         ratings.extend(r)
 
     return users, items, ratings
+
+def load_data_cluster(_path):
+    h5 = h5_read(_path)
+    data = h5['/train']['data'][()]
+
+    aids = []
+    ratings = []
+    for aid in data:
+        aids.append(aid)
+        ratings.append(data[aid])
+
+    return aids, ratings
+
+def load_result_cluster(_path):
+    h5 = h5_read(_path)
+    result = h5['/cluster']['result'][()]
+    h5.close()
+    return result
+    
+def get_query(sql_file_path):
+    with open(sql_file_path, 'r') as file:
+        q = file.read()
+    return q    
