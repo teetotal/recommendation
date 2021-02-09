@@ -20,7 +20,7 @@ while True:
         query += "('" + data[0].decode('utf8') + "', " + str(data[1]) + "),"
     
     query = query[:-1]
-    insert(q)
+    execute(q)
     print("Remain", len(result))
 
 print("Done")
