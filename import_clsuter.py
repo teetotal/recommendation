@@ -1,6 +1,7 @@
 from export_util import *
 from util import *
 
+print("Loading Data")
 result = load_result_cluster('cluster_result.h5')
 
 #const
@@ -15,12 +16,14 @@ while True:
 
     data = result[:size_insert]
     result = result[size_insert:]
-
+    
+    query = ""
     for d in data:
-        query += "('" + data[0].decode('utf8') + "', " + str(data[1]) + "),"
+        query += "('" + d[0] + "', " + str(d[1]) + "),"
     
     query = query[:-1]
-    execute(q)
+    query = q + query
+    execute(query)
     print("Remain", len(result))
 
 print("Done")

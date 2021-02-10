@@ -1,6 +1,7 @@
 from export_util import *
 import os
 from h5 import *
+from util import *
 
 path_dir = 'data'
 if not os.path.exists(path_dir):
@@ -17,7 +18,7 @@ while True:
     ratings = []
 
     q = query + "LIMIT " + str(idx) + ", " + str(size_loading_data)    
-    rows = get_data(q)
+    rows = select(q)
     if len(rows) == 0:
         break
     print(idx, len(rows))

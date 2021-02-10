@@ -3,7 +3,7 @@ from hyper_params import *
 ########################################################
 s = sql(get_hyperparams())
 ####################################################################
-def get_data(query):
+def select(query):
     return s.get_rows(query)
 def execute(query):
     s.execute(query)

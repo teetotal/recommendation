@@ -1,6 +1,8 @@
 .vscode
 data/
 _data/
+data_cluster/
+*.h5
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

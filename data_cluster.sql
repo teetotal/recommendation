@@ -1,2 +1,5 @@
-SELECT aid, position, rating 
-FROM D20210128_POSITION_RATING
+SELECT A.aid, A.position 
+FROM D20210128_TB_MATCHFACT_PLAYER_LOG A
+INNER JOIN D20210128_CF_MAX B
+		ON A.aid = B.aid
+WHERE B.max_rating >= 10 AND A.rating >= 7
