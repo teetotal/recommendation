@@ -8,7 +8,7 @@ path_dir = 'data_cluster'
 if not os.path.exists(path_dir):
     os.makedirs(path_dir)
 
-size_loading_data = 20000
+size_loading_data = 2000000
 idx = 0
 
 query = get_query('data_cluster.sql')
