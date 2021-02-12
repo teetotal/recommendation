@@ -118,8 +118,14 @@ trainset, item_spids = load_train_data()
 algo = load_model(model_path)
 if algo == None:
     algo = SVD(n_factors=factors, n_epochs=epochs, verbose=True)
-    algo.fit(trainset)
-    dump.dump(model_path, algo=algo)
+algo.fit(trainset)
+dump.dump(model_path, algo=algo)
+
+#accuracy
+testset = trainset.build_testset()
+predictions = algo.test(testset, verbose=False)
+# RMSE should be low as we are biased
+accuracy.rmse(predictions, verbose=True)
 
 uid = '3e31df4a5d1efc1f3e033404'
 p = prediction(uid, item_spids, 2.0)
