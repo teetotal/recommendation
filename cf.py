@@ -133,7 +133,7 @@ def prediction(aids, items, min_rating = 0.0, user_item = None):
 
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--factors', type=int, required=False, default=200, help="default 200.")
+parser.add_argument('--factors', type=int, required=False, default=100, help="default 100.")
 parser.add_argument('--epochs', type=int, required=False, default=100, help="default 100.")
 parser.add_argument('--model', type=str, required=False, default='model.cf', help="default model.cf.")
 parser.add_argument('--refit', type=int, required=False, default=1, help="0 <= false, 0 > true default 1.")
