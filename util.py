@@ -31,8 +31,10 @@ def load_cf_data(_path):
     for f in files:
         u, i, r = get_cf_data(_path + "/" + f)
         
-        users.extend(u)
-        items.extend(i)
+        for user in u:
+            users.append(user.decode('utf8'))
+        for item in i:
+            items.append(item.decode('utf8'))
         ratings.extend(r)
 
     return users, items, ratings
