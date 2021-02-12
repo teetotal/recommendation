@@ -3,7 +3,7 @@ data/
 _data/
 data_cluster/
 *.h5
-model_cf
+model.cf
 *.csv
 # Byte-compiled / optimized / DLL files
 __pycache__/
