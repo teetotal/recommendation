@@ -158,10 +158,13 @@ print('params', args)
 
 trainset, aids, spids, user_item = load_train_data()
 algo = load_model(model_path)
+
+is_create_model = False
 if algo == None:
     algo = SVD(n_factors=factors, n_epochs=epochs, verbose=True)
+    is_create_model = True
 
-if algo == None or refit == True:
+if is_create_model == True or refit == True:
     algo.fit(trainset)
     dump.dump(model_path, algo=algo)
 
