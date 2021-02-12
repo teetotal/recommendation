@@ -136,14 +136,17 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--factors', type=int, required=False, default=100, help="default 100.")
 parser.add_argument('--epochs', type=int, required=False, default=100, help="default 100.")
 parser.add_argument('--model', type=str, required=False, default='model.cf', help="default model.cf.")
-parser.add_argument('--refit', type=int, required=False, default=1, help="0 <= false, 0 > true default 1.")
+parser.add_argument('--refit', type=int, required=False, default=0, help="0 <= false, 0 > true default 0.")
 parser.add_argument('--user', type=str, required=False, default=None, help="specify user to recommend. default None. 3e31df4a5d1efc1f3e033404")
 parser.add_argument('--csv', type=int, required=False, default=1, help="0 <= false, 0 > true default 1.")
 args = parser.parse_args()
 factors = args.factors
 epochs = args.epochs
 model_path = args.model
-user = [args.user]
+if args.user == None:
+    user = None
+else:
+    user = [args.user]
 
 if args.refit <= 0: refit = False
 else: refit = True
