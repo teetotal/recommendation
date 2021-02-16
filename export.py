@@ -17,11 +17,12 @@ while True:
     items = []
     ratings = []
 
+    print("loading ... idx: ", idx)
     q = query + "LIMIT " + str(idx) + ", " + str(size_loading_data)    
     rows = select(q)
     if len(rows) == 0:
         break
-    print(idx, len(rows))
+    print("loaded", idx, len(rows))
 
     for row in rows:
         users.append(str(row[0]).encode('utf8'))
