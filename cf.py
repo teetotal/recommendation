@@ -59,7 +59,7 @@ parser.add_argument('--epochs', type=int, required=False, default=100, help="def
 parser.add_argument('--model', type=str, required=False, default='model.cf', help="default model.cf.")
 parser.add_argument('--refit', type=int, required=False, default=0, help="0 <= false, 0 > true default 0.")
 parser.add_argument('--user', type=str, required=False, default='3e31df4a5d1efc1f3e033404', help="specify user to recommend. default None. 3e31df4a5d1efc1f3e033404")
-parser.add_argument('--csv', type=int, required=False, default=1, help="0 <= false, 0 > true default 1.")
+parser.add_argument('--csv', type=int, required=False, default=0, help="0 <= false, 0 > true default 1.")
 args = parser.parse_args()
 factors = args.factors
 epochs = args.epochs
@@ -109,13 +109,14 @@ else:
         print(i, u[i])
         algo.predict(user[0], i, verbose=True )
 
-p = prediction(user, spids, 2.0, user_item)
-t = get_top_n(p)
-for aid in t:
-    for pred in t[aid]:
-        print(aid, [pred])
-
 if is_csv == True:
+    p = prediction(user, spids, 2.0, user_item)
+    '''
+    t = get_top_n(p)
+    for aid in t:
+        for pred in t[aid]:
+            print(aid, [pred])
+    '''
     export_csv(p)
 
 

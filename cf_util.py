@@ -25,7 +25,7 @@ def load_model(path):
 def load_train_data():
     print('Load data')
     users, items, ratings = load_cf_data('data')
-
+    '''
     print('\tdistinct items')
     item_list = {}
     spids = []
@@ -37,24 +37,25 @@ def load_train_data():
                 'grade': int(item - (int(item/10) * 10)) 
             }
             spids.append(int(item/10))
-
-    spids = distinct(spids)
-
+    '''
     print('\tdistinct users')
     aids = distinct(users)
-
+    
     print('\tredefine items')
-    items = [int(int(item)/10) for item in items]
+    items = [int(item) for item in items]
 
+    print('\tdistinct items')
+    spids = distinct(items)
+    
     print('\tlist-up user-item')
     user_item = {}
     for n in range(len(users)):
         if (users[n] in user_item) == False:
             user_item[users[n]] = {}
         if items[n] in user_item[users[n]]:
-            user_item[users[n]][items[n]] += 1
-        else:
-            user_item[users[n]][items[n]] = 1
+            print('conflict', users[n], items[n])
+        
+        user_item[users[n]][items[n]] = ratings[n]
 
     print('\tcreation of the dataframe.')
     df = pd.DataFrame(
